@@ -3,12 +3,7 @@ package kz.enu.epam.azimkhan.auth.entity;
 /**
  * User
  */
-public class User implements Entity {
-
-    /**
-     * user id
-     */
-    private int id;
+public class User extends Entity {
 
     /**
      * username
@@ -43,13 +38,6 @@ public class User implements Entity {
         this.username = username;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -58,7 +46,7 @@ public class User implements Entity {
 
         User user = (User) o;
 
-        if (id != user.id) return false;
+        if (getId() != user.getId()) return false;
         if (!password.equals(user.password)) return false;
         if (!username.equals(user.username)) return false;
 
@@ -67,7 +55,7 @@ public class User implements Entity {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = getId();
         result = 31 * result + username.hashCode();
         result = 31 * result + password.hashCode();
         return result;
@@ -75,6 +63,6 @@ public class User implements Entity {
 
     @Override
     public String toString(){
-        return "User#"+id+"[username="+username+"]";
+        return "User#"+getId()+"[username="+username+"]";
     }
 }
