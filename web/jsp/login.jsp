@@ -9,7 +9,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${locale}"/>
-<fmt:setBundle basename="kz.enu.epam.azimkhan.auth.resource.message"/>
+<fmt:setBundle basename="message"/>
 <html>
 <head>
     <title><fmt:message key="auth.page.title"/></title>
@@ -27,10 +27,10 @@
         <p><fmt:message key="auth.page.message"/> </p>
         <form method="post" id="loginForm">
             <input type="hidden" name="command" value="login"/>
-            <label for="${login_var}"><fmt:message key="auth.page.login_form.login"/> :</label>
-            <input type="text" name="${login_var}"/>
-            <label for="${password_var}"><fmt:message key="auth.page.login_form.password"/>:</label>
-            <input type="password" name="${password_var}"/>
+            <label for="login"><fmt:message key="auth.page.login_form.login"/> :</label>
+            <input id="login" type="text" name="login"/>
+            <label for="password"><fmt:message key="auth.page.login_form.password"/>:</label>
+            <input id="password" type="password" name="password"/>
             <input type="submit" value="<fmt:message key="auth.page.login_form.submit"/>"/>
         </form>
     </div>

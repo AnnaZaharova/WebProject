@@ -1,10 +1,10 @@
 package kz.enu.epam.azimkhan.auth.servlet;
 
 import kz.enu.epam.azimkhan.auth.command.ActionCommand;
+import kz.enu.epam.azimkhan.auth.exception.CommandException;
 import kz.enu.epam.azimkhan.auth.helper.RequestHelper;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,10 +34,15 @@ public class FrontController extends HttpServlet {
      */
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ActionCommand command = requestHelper.getCommand(request);
-        String redirectPath = command.execute(request, response);
 
-        if (redirectPath != null){
-            response.sendRedirect(redirectPath);
+        try{
+            String page = command.execute(request, response);
+            if (page != null){
+                request.getRequestDispatcher(page).forward(request, response);
+            }
+        } catch (CommandException e) {
+            //TODO replace by error page
+            response.getOutputStream().print(e.getMessage());
         }
     }
 

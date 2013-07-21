@@ -101,8 +101,8 @@ public class UserDAO extends AbstractDAO<Integer, User>{
 
                     ResultSet set = statement.executeQuery();
 
-                    set.next();
-                    if (!set.wasNull()){
+
+                    if (set.next()){
                         user = createFromResultSet(set);
                     }
 

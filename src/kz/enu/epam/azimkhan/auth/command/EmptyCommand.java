@@ -1,5 +1,6 @@
 package kz.enu.epam.azimkhan.auth.command;
 
+import kz.enu.epam.azimkhan.auth.exception.CommandException;
 import kz.enu.epam.azimkhan.auth.resource.PathManager;
 
 import javax.servlet.ServletException;
@@ -15,6 +16,7 @@ public class EmptyCommand extends ActionCommand{
     /**
      * Return to the error page
      *
+     *
      * @param request request to read the command from
      * @param response
      * @return
@@ -22,7 +24,7 @@ public class EmptyCommand extends ActionCommand{
      * @throws IOException
      */
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         return PathManager.INSTANCE.getString("path.page.main");
     }
 }

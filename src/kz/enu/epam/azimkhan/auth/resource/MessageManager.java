@@ -15,7 +15,7 @@ import java.util.ResourceBundle;
 public enum MessageManager {
     INSTANCE;
 
-    private static final String BUNDLE_NAME = "kz.enu.epam.azimkhan.auth.resource.message";
+    private static final String BUNDLE_NAME = "message";
     private ResourceBundle bundle = null;
     private Locale lastLocale = null;
     private LocaleManager localeManager = LocaleManager.INSTANCE;
@@ -25,9 +25,7 @@ public enum MessageManager {
      * @param key
      * @return
      */
-    public synchronized String getMessage(HttpServletRequest request, String key) {
-
-        Locale locale = localeManager.getLocale(request);
+    public synchronized String getMessage(String key, Locale locale) {
 
         if (lastLocale != null && lastLocale.equals(locale)){
             return bundle.getString(key);

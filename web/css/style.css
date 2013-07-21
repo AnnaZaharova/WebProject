@@ -81,10 +81,10 @@ a{
 
 }
 
-.lang-ru-RU{
-    background: url('/images/ru-RU.png');
+.lang-ru{
+    background: url('../images/ru-RU.png');
 }
 
-.lang-en-GB{
-    background: url('/images/en-GB.png');
+.lang-en{
+    background: url('../images/en-GB.png');
 }

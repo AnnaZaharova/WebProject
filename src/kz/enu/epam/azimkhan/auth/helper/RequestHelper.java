@@ -26,7 +26,6 @@ public enum RequestHelper {
     {
         commands.put("login", new LoginCommand());
         commands.put("logout", new LogoutCommand());
-        commands.put("change_locale", new ChangeLocaleCommand());
     }
 
     /**

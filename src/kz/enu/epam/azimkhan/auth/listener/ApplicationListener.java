@@ -15,24 +15,20 @@ import java.util.Locale;
 
 public class ApplicationListener implements ServletContextListener,
         HttpSessionListener, HttpSessionAttributeListener, ServletRequestListener{
-    private Logger logger = Logger.getRootLogger();
 
-    private ServletContext context;
+    private Logger logger = Logger.getRootLogger();
+    private LocaleManager localeManager = LocaleManager.INSTANCE;
+
 
     // Public constructor is required by servlet spec
     public ApplicationListener() {
     }
 
-    // -------------------------------------------------------
-    // ServletContextListener implementation
-    // -------------------------------------------------------
     public void contextInitialized(ServletContextEvent sce) {
 
-        LocaleManager localeManager = LocaleManager.INSTANCE;
-        context = sce.getServletContext();
+        ServletContext context = sce.getServletContext();
         context.setAttribute("locales", LocaleManager.INSTANCE.getLocales());
-        Locale locale = localeManager.getDefaultLocale();
-        localeManager.setLocale(context, locale);
+
         Locale.setDefault(Locale.ENGLISH);
 
     }
@@ -70,7 +66,7 @@ public class ApplicationListener implements ServletContextListener,
     }
 
     public void attributeReplaced(HttpSessionBindingEvent sbe) {
-      attributeAdded(sbe);
+
     }
 
     @Override
@@ -80,6 +76,9 @@ public class ApplicationListener implements ServletContextListener,
 
     @Override
     public void requestInitialized(ServletRequestEvent servletRequestEvent) {
-
+        ServletRequest request = servletRequestEvent.getServletRequest();
+        Locale locale = localeManager.resolveLocale(request);
+        Logger.getRootLogger().info(locale.getDisplayLanguage());
+        request.setAttribute("locale", locale);
     }
 }

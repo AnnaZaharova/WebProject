@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${locale}"/>
-<fmt:setBundle basename="kz.enu.epam.azimkhan.auth.resource.message"/>
+<fmt:setBundle basename="message"/>
 <html>
 <head>
     <title><fmt:message key="main.page.title"/></title>

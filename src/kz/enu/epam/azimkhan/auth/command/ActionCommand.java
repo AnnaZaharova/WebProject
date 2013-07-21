@@ -1,6 +1,7 @@
 package kz.enu.epam.azimkhan.auth.command;
 
 import com.sun.deploy.net.HttpRequest;
+import kz.enu.epam.azimkhan.auth.exception.CommandException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +19,10 @@ public abstract class ActionCommand {
      * a page to forward to
      *
      *
+     *
      * @param request request to read the command from
      * @param response
      * @return forward page
      */
-    public abstract String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+    public abstract String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException;
 }

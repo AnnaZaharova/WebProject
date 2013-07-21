@@ -104,7 +104,7 @@ public class ConnectionPool implements Pool<Connection>{
                 logger.info("Connection " + connection + " returned to connection pool");
             } catch (InterruptedException e) {
                 logger.error(e.getMessage());
-                throw new RuntimeException(e);
+
             }
         }
     }
