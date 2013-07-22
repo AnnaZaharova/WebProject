@@ -17,6 +17,11 @@ public class LogoutCommand extends ActionCommand{
     private final Logger logger = Logger.getRootLogger();
 
     @Override
+    public boolean checkAccess(User user) {
+        return true;
+    }
+
+    @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         User user = (User) request.getSession().getAttribute(AuthenticationLogic.SESSION_VAR);
         if (user != null){

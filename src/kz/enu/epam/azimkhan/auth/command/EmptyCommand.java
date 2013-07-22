@@ -1,5 +1,6 @@
 package kz.enu.epam.azimkhan.auth.command;
 
+import kz.enu.epam.azimkhan.auth.entity.User;
 import kz.enu.epam.azimkhan.auth.exception.CommandException;
 import kz.enu.epam.azimkhan.auth.resource.PathManager;
 
@@ -12,6 +13,11 @@ import java.io.IOException;
  * This command is used if empty or wrong command is specified
  */
 public class EmptyCommand extends ActionCommand{
+
+    @Override
+    public boolean checkAccess(User user) {
+        return true;
+    }
 
     /**
      * Return to the error page

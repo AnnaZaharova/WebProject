@@ -2,10 +2,10 @@ package kz.enu.epam.azimkhan.auth.logic.authentication;
 
 import kz.enu.epam.azimkhan.auth.dao.UserDAO;
 import kz.enu.epam.azimkhan.auth.entity.User;
-import kz.enu.epam.azimkhan.auth.exception.AuthenticationException;
+import kz.enu.epam.azimkhan.auth.exception.AuthenticationLogicalException;
+import kz.enu.epam.azimkhan.auth.exception.AuthenticationTechnicalException;
 import kz.enu.epam.azimkhan.auth.exception.DAOLogicalException;
 import kz.enu.epam.azimkhan.auth.exception.DAOTechnicalException;
-import kz.enu.epam.azimkhan.auth.util.PasswordDigest;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,9 +21,9 @@ public class AuthenticationLogic {
      * Authenticate user
      * @param login
      * @param password
-     * @throws AuthenticationException
+     * @throws kz.enu.epam.azimkhan.auth.exception.AuthenticationTechnicalException
      */
-    public static User authenticate(String login, String password) throws AuthenticationException{
+    public static User authenticate(String login, String password) throws AuthenticationTechnicalException, AuthenticationLogicalException {
         if (login != null && password != null){
             String hash = DigestUtils.md5Hex(password);
             UserDAO dao = new UserDAO();
@@ -33,9 +33,9 @@ public class AuthenticationLogic {
 				return user;
 
             } catch (DAOLogicalException e) {
-                throw new AuthenticationException(e);
+                throw new AuthenticationLogicalException(e);
             } catch (DAOTechnicalException e) {
-                throw new AuthenticationException(e);
+                throw new AuthenticationTechnicalException(e);
             }
         }
         return null;
@@ -59,6 +59,11 @@ public class AuthenticationLogic {
         session.invalidate();
     }
 
+    /**
+     *
+     * @param request
+     * @return
+     */
     public static User user(HttpServletRequest request){
         HttpSession session = request.getSession();
         Object ob = session.getAttribute(SESSION_VAR);

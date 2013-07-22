@@ -3,3 +3,4 @@ web/.DS_Store
 .idea/
 *.iml
 out/
+src/database.properties

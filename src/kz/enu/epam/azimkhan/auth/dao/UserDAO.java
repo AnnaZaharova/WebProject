@@ -60,7 +60,7 @@ public class UserDAO extends AbstractDAO<Integer, User>{
 
                 return users;
             } catch (SQLException e) {
-                throw new DAOLogicalException(e);
+                throw new DAOTechnicalException(e);
             } finally {
                 if (null != statement) {
                     try {
@@ -109,7 +109,7 @@ public class UserDAO extends AbstractDAO<Integer, User>{
 					}
 
                 } catch (SQLException e){
-                    throw new DAOLogicalException(e);
+                    throw new DAOTechnicalException(e);
                 } finally {
                     if (null != statement) {
                         try {
@@ -163,7 +163,7 @@ public class UserDAO extends AbstractDAO<Integer, User>{
 					}
 
                 } catch (SQLException e) {
-                    throw new DAOLogicalException(e);
+                    throw new DAOTechnicalException(e);
                 } finally {
                     if (null != statement) {
                         try {
@@ -209,7 +209,7 @@ public class UserDAO extends AbstractDAO<Integer, User>{
                     return (affected > 0);
 
                 } catch (SQLException e) {
-                    throw new DAOLogicalException();
+                    throw new DAOTechnicalException();
                 } finally {
                     if (null != statement) {
                         try {
@@ -272,7 +272,7 @@ public class UserDAO extends AbstractDAO<Integer, User>{
                     return (affected > 0);
 
                 } catch (SQLException e) {
-                    throw new DAOLogicalException(e.getMessage());
+                    throw new DAOTechnicalException(e.getMessage());
 
                 } finally {
                     if (null != statement) {
@@ -328,7 +328,7 @@ public class UserDAO extends AbstractDAO<Integer, User>{
                     return (affected > 0);
 
                 } catch (SQLException e) {
-                    throw new DAOLogicalException(e);
+                    throw new DAOTechnicalException(e);
                 } finally {
                     if (null != statement){
                         try {

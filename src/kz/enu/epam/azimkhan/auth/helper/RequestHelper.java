@@ -3,6 +3,7 @@ package kz.enu.epam.azimkhan.auth.helper;
 import kz.enu.epam.azimkhan.auth.command.*;
 import org.apache.log4j.Logger;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 
@@ -35,7 +36,7 @@ public enum RequestHelper {
      * @param request
      * @return
      */
-    public ActionCommand getCommand(HttpServletRequest request){
+    public ActionCommand getCommand(ServletRequest request){
         String action = request.getParameter(COMMAND_PARAMETER);
         return getCommand(action);
     }

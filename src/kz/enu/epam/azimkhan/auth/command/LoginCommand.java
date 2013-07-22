@@ -2,7 +2,8 @@ package kz.enu.epam.azimkhan.auth.command;
 
 import kz.enu.epam.azimkhan.auth.entity.Role;
 import kz.enu.epam.azimkhan.auth.entity.User;
-import kz.enu.epam.azimkhan.auth.exception.AuthenticationException;
+import kz.enu.epam.azimkhan.auth.exception.AuthenticationLogicalException;
+import kz.enu.epam.azimkhan.auth.exception.AuthenticationTechnicalException;
 import kz.enu.epam.azimkhan.auth.exception.CommandException;
 import kz.enu.epam.azimkhan.auth.logic.authentication.AuthenticationLogic;
 import kz.enu.epam.azimkhan.auth.notification.creator.NotificationCreator;
@@ -28,20 +29,26 @@ public class LoginCommand extends ActionCommand{
     private Logger logger = Logger.getRootLogger();
 
     @Override
+    public boolean checkAccess(User user) {
+        return true;
+    }
+
+
+    @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 
         PathManager pathManager = PathManager.INSTANCE;
         Notification notification = null;
 
         Locale locale = LocaleManager.INSTANCE.resolveLocale(request);
+        final String login = request.getParameter(LOGIN_PARAMETER);
+        final String password = request.getParameter(PASSWORD_PARAMETER);
 
-        if (request.getMethod().equalsIgnoreCase("post")){
-			final String login = request.getParameter(LOGIN_PARAMETER);
-			final String password = request.getParameter(PASSWORD_PARAMETER);
+        if (login != null && password != null){
 
             try {
 				User user = AuthenticationLogic.authenticate(login, password);
-                if (user != null){
+
 					HttpSession session = request.getSession();
 					session.setAttribute(AuthenticationLogic.SESSION_VAR, user);
 
@@ -53,13 +60,14 @@ public class LoginCommand extends ActionCommand{
 					} else {
 						return pathManager.getString("path.page.tours");
 					}
-                }else{
-                    logger.info("Authentication fail by login: " + login);
-                    notification = NotificationCreator.createFromProperty("error.auth.invalid_login_pass", Notification.Type.ERROR, locale);
-                }
 
-            } catch (AuthenticationException e) {
+
+            } catch (AuthenticationTechnicalException e) {
                 throw new CommandException(e);
+            } catch (AuthenticationLogicalException e) {
+                logger.info("Authentication fail by login: " + login);
+                notification = NotificationCreator.createFromProperty("error.auth.invalid_login_pass", Notification.Type.ERROR, locale);
+
             } finally {
                 if (notification != null){
                     NotificationService.push(request.getSession(), notification);
