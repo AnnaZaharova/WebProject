@@ -3,12 +3,15 @@ package kz.enu.epam.azimkhan.auth.servlet;
 import kz.enu.epam.azimkhan.auth.command.ActionCommand;
 import kz.enu.epam.azimkhan.auth.exception.CommandException;
 import kz.enu.epam.azimkhan.auth.helper.RequestHelper;
+import kz.enu.epam.azimkhan.auth.resource.PathManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.MissingResourceException;
 
 /**
  * Front Controller
@@ -16,8 +19,19 @@ import java.io.IOException;
 public class FrontController extends HttpServlet {
 
     private final RequestHelper requestHelper = RequestHelper.INSTANCE;
+	private final Logger logger = Logger.getRootLogger();
+	private String errorPagePath;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	public void init() throws ServletException {
+		try{
+			errorPagePath = PathManager.INSTANCE.getString("path.error500");
+		} catch (MissingResourceException e){
+			logger.error(e.getMessage());
+		}
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -41,8 +55,10 @@ public class FrontController extends HttpServlet {
                 request.getRequestDispatcher(page).forward(request, response);
             }
         } catch (CommandException e) {
-            //TODO replace by error page
-            response.getOutputStream().print(e.getMessage());
+			if (errorPagePath != null){
+				request.getRequestDispatcher(errorPagePath).forward(request, response);
+			}
+			logger.error(e.getMessage());
         }
     }
 

@@ -12,6 +12,8 @@ import java.util.List;
  * @param <T>
  */
 public abstract class AbstractDAO <K, T extends Entity> {
+	protected final String NO_CONNECTION_MESSAGE = "Unable to get connection with database";
+
     public abstract List<T> findAll() throws DAOLogicalException, DAOTechnicalException;
     public abstract T findById(K id) throws DAOLogicalException, DAOTechnicalException;
     public abstract boolean delete(K id) throws DAOLogicalException, DAOTechnicalException;

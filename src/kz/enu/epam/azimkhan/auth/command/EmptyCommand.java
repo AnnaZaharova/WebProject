@@ -15,11 +15,9 @@ public class EmptyCommand extends ActionCommand{
 
     /**
      * Return to the error page
-     *
-     *
      * @param request request to read the command from
-     * @param response
-     * @return
+     * @param response response
+     * @return path
      * @throws ServletException
      * @throws IOException
      */

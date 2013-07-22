@@ -18,13 +18,13 @@ import java.util.Iterator;
 public class FlashesTag extends BodyTagSupport{
     private static final String MESSAGE = "{message}";
     private static final String TYPE = "{type}";
-    private NotificationService notificationService = null;
     private BodyContent bodyContent = null;
     private String pattern = null;
+	private Iterator<Notification> iterator;
 
     @Override
     public int doStartTag() throws JspException {
-        notificationService = new NotificationService((HttpServletRequest) pageContext.getRequest());
+        iterator = NotificationService.getNotifications(pageContext.getSession()).iterator();
 
         return EVAL_BODY_BUFFERED;
     }
@@ -42,11 +42,8 @@ public class FlashesTag extends BodyTagSupport{
             pattern = rawPattern;
         }
 
-        // Iterator of notifications
-        Iterator<Notification> iterator = notificationService.iterator();
-
         //While have notifications
-        if (iterator.hasNext()){
+        if (iterator != null && iterator.hasNext()){
 
             Notification notification = iterator.next();
             iterator.remove();

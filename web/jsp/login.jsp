@@ -1,15 +1,11 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: azimkhan
-  Date: 12.07.13
-  Time: 14:22
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="m" uri="http://azimkhan.net/taglib" %>
+
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="message"/>
+<c:set var="user" scope="page" value="${m:user(pageContext.request)}"/>
 <html>
 <head>
     <title><fmt:message key="auth.page.title"/></title>
@@ -18,8 +14,6 @@
 <body>
 
     <%@include file="../WEB-INF/jspf/header.jspf"%>
-
-
 
     <div class="content">
 

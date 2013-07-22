@@ -1,8 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="m" uri="http://azimkhan.net/taglib" %>
+
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="message"/>
+<c:set var="user" scope="page" value="${m:user(pageContext.request)}"/>
 <html>
 <head>
     <title><fmt:message key="main.page.title"/></title>

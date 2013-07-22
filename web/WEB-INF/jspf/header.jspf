@@ -1,19 +1,14 @@
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@taglib prefix="m" uri="http://azimkhan.net/taglib" %>
-
 <div id="header">
-    <c:set var="user" scope="page" value="${m:user(pageContext.request)}"/>
 
     <ul class="lang_switcher">
         <c:forEach items="${locales}" var="locale">
-            <c:set var="code" value="${locale.value.toLanguageTag()}"/>
-            <li class="lang lang-${code}"><a href="index.jsp?lang=${code}">${locale.key}</a> </li>
+            <li class="lang lang-${locale.value}"><a href="index.jsp?lang=${locale.value}">${locale.key}</a></li>
         </c:forEach>
     </ul>
     <c:choose>
 
         <c:when test="${not empty user}">
-            <p><fmt:message key="user.welcome"> <fmt:param value="${ user.username }"/> </fmt:message> [<a href="app?c=logout&lang=${locale}"><fmt:message key="user.logout"/></a>]</p>
+            <p><fmt:message key="user.welcome"><fmt:param value="${user.username}"/> <fmt:param value="${ user.role.rolename }"/> </fmt:message> [<a href="app?c=logout&lang=${locale}"><fmt:message key="user.logout"/></a>]</p>
         </c:when>
 
         <c:otherwise>
@@ -22,7 +17,7 @@
     </c:choose>
 </div>
 
-<c:if test="${m:have_notifications(pageContext.request)}">
+<c:if test="${m:have_notifications(pageContext.session)}">
     <div class="content">
     <m:notifications>
         <p class="alert alert-{type}">{message}</p>

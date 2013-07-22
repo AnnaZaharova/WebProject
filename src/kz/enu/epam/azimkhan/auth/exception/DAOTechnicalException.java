@@ -4,6 +4,7 @@ package kz.enu.epam.azimkhan.auth.exception;
  *
  */
 public class DAOTechnicalException extends Exception{
+
     public DAOTechnicalException() {
     }
 

@@ -46,6 +46,7 @@ a{
     padding: 10px;
     border-style: solid;
     border-width: 1px;
+    margin-bottom: 25px;
 }
 .alert-error{
     border-color: rgb(211, 143, 143);
@@ -87,4 +88,41 @@ a{
 
 .lang-en{
     background: url('../images/en-GB.png');
+}
+
+table{
+    font-size: 85%;
+    border-top: 1px solid #CCCCCC;
+    border-left: 1px solid #CCCCCC;
+    border-spacing: 0;
+}
+
+th{
+    font-weight: bold;
+    vertical-align: top;
+    text-align: center;
+}
+
+td, th{
+    border-right: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+    padding: 10px;
+}
+
+tr:nth-child(2n){
+    background-color: #eee;
+}
+
+td {
+    color: #333;
+}
+
+.actions{
+    margin-bottom: 25px;
+}
+.btn{
+    display: inline-block;
+    color: white;
+    background-color: rgb(0, 163, 0);
+    padding: 10px 20px;
 }

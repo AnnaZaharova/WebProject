@@ -78,7 +78,6 @@ public class ApplicationListener implements ServletContextListener,
     public void requestInitialized(ServletRequestEvent servletRequestEvent) {
         ServletRequest request = servletRequestEvent.getServletRequest();
         Locale locale = localeManager.resolveLocale(request);
-        Logger.getRootLogger().info(locale.getDisplayLanguage());
         request.setAttribute("locale", locale);
     }
 }

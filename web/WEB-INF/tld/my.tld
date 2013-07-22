@@ -22,7 +22,7 @@
     <function>
         <name>have_notifications</name>
         <function-class>kz.enu.epam.azimkhan.auth.notification.service.NotificationService</function-class>
-        <function-signature>boolean haveNotifications(javax.servlet.http.HttpServletRequest)</function-signature>
+        <function-signature>boolean haveNotifications(javax.servlet.http.HttpSession)</function-signature>
 
     </function>
     <function>

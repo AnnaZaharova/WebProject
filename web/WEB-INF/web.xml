@@ -21,6 +21,20 @@
         <url-pattern>/app</url-pattern>
     </servlet-mapping>
 
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/jsp/error/404.jsp</location>
+    </error-page>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/jsp/error/500.jsp</location>
+    </error-page>
+
     <jsp-config>
         <taglib>
             <taglib-uri>http://azimkhan.net/taglib</taglib-uri>

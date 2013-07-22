@@ -20,7 +20,7 @@ public class LogoutCommand extends ActionCommand{
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         User user = (User) request.getSession().getAttribute(AuthenticationLogic.SESSION_VAR);
         if (user != null){
-            AuthenticationLogic.logout(request);
+            AuthenticationLogic.logout(request.getSession());
             logger.info("Logged out: " + user.getUsername());
         }
         return PathManager.INSTANCE.getString("path.page.main");

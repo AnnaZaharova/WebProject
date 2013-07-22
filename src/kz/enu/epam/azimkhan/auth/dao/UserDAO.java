@@ -1,6 +1,7 @@
 package kz.enu.epam.azimkhan.auth.dao;
 
 import kz.enu.epam.azimkhan.auth.connection.ConnectionPool;
+import kz.enu.epam.azimkhan.auth.entity.Role;
 import kz.enu.epam.azimkhan.auth.entity.User;
 import kz.enu.epam.azimkhan.auth.exception.ConnectionPoolException;
 import kz.enu.epam.azimkhan.auth.exception.DAOLogicalException;
@@ -16,13 +17,12 @@ import java.util.List;
  */
 public class UserDAO extends AbstractDAO<Integer, User>{
 
-    private static final String SELECT_ALL = "SELECT id, username, password FROM users";
-    private static final String FIND_BY_ID = "SELECT id, username, password FROM users WHERE id = ?";
-    private static final String FIND_BY_LOGIN_PASSWORD = "SELECT id, username, password FROM users WHERE username = ? AND password = ?";
-    private static final String DELETE_BY_ID = "DELETE users WHERE id = ?";
-    private static final String CREATE_USER = "INSERT INTO users (username, password) VALUES(?, ?)";
-    private static final String UPDATE_USER = "UPDATE users SET username = ?, password = ? WHERE id = ?";
-    private static final String NO_CONNECTION_MESSAGE = "Unable to get connection";
+    private static final String SELECT_ALL = "SELECT user.id, user.username, user.password, user.role_id, role.rolename FROM user JOIN role ON user.role_id = role.id";
+    private static final String FIND_BY_ID = "SELECT user.id, user.username, user.password, user.role_id, role.rolename FROM user JOIN role ON user.role_id = role.id WHERE user.id = ?";
+    private static final String FIND_BY_LOGIN_PASSWORD = "SELECT user.id, user.username, user.password, user.role_id, role.rolename FROM user JOIN role ON user.role_id = role.id WHERE user.username = ? AND user.password = ?";
+    private static final String DELETE_BY_ID = "DELETE user WHERE id = ?";
+    private static final String CREATE_USER = "INSERT INTO user (username, password, role_id) VALUES(?, ?, ?)";
+    private static final String UPDATE_USER = "UPDATE users SET username = ?, password = ?, role_id = ? WHERE id = ?";
     private static final Logger logger = Logger.getRootLogger();
 
     /**
@@ -157,6 +157,7 @@ public class UserDAO extends AbstractDAO<Integer, User>{
                     if(resultSet.next()){
                         user = createFromResultSet(resultSet);
                     }
+
                 } catch (SQLException e) {
                     throw new DAOLogicalException(e);
                 } finally {
@@ -261,6 +262,7 @@ public class UserDAO extends AbstractDAO<Integer, User>{
                     statement = connection.prepareStatement(CREATE_USER);
                     statement.setString(1, entity.getUsername());
                     statement.setString(2, entity.getPassword());
+					statement.setInt(3, entity.getRole().getId());
 
                     int affected = statement.executeUpdate();
                     return (affected > 0);
@@ -314,7 +316,8 @@ public class UserDAO extends AbstractDAO<Integer, User>{
                     statement = connection.prepareStatement(UPDATE_USER);
                     statement.setString(1, entity.getUsername());
                     statement.setString(2, entity.getPassword());
-                    statement.setInt(3, entity.getId());
+					statement.setInt(3, entity.getRole().getId());
+                    statement.setInt(4, entity.getId());
 
                     int affected = statement.executeUpdate();
 
@@ -353,6 +356,12 @@ public class UserDAO extends AbstractDAO<Integer, User>{
         user.setId(set.getInt("id"));
         user.setUsername(set.getString("username"));
         user.setPassword(set.getString("password"));
+
+		Role role = new Role();
+		role.setId (set.getInt("role_id"));
+		role.setRolename(set.getString("rolename"));
+
+		user.setRole(role);
 
         return user;
     }

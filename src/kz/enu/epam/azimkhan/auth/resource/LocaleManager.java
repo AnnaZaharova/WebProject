@@ -48,7 +48,6 @@ public enum LocaleManager {
 
             while(iterator.hasNext()){
                 Locale locale = iterator.next().getValue();
-                Logger.getRootLogger().debug(locale.toLanguageTag() + " " + code);
                 if (locale.toLanguageTag().equalsIgnoreCase(code)){
                     return locale;
                 }

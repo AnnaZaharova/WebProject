@@ -6,6 +6,7 @@ import kz.enu.epam.azimkhan.auth.exception.AuthenticationException;
 import kz.enu.epam.azimkhan.auth.exception.DAOLogicalException;
 import kz.enu.epam.azimkhan.auth.exception.DAOTechnicalException;
 import kz.enu.epam.azimkhan.auth.util.PasswordDigest;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,28 +23,22 @@ public class AuthenticationLogic {
      * @param password
      * @throws AuthenticationException
      */
-    public static boolean authenticate(HttpServletRequest request, final String login, final String password) throws AuthenticationException{
+    public static User authenticate(String login, String password) throws AuthenticationException{
         if (login != null && password != null){
-            String hash = PasswordDigest.md5hash(password);
+            String hash = DigestUtils.md5Hex(password);
             UserDAO dao = new UserDAO();
-            User user = null;
+
             try {
-                user = dao.findByLoginAndPassword(login, hash);
+                User user = dao.findByLoginAndPassword(login, hash);
+				return user;
+
             } catch (DAOLogicalException e) {
                 throw new AuthenticationException(e);
             } catch (DAOTechnicalException e) {
                 throw new AuthenticationException(e);
             }
-
-            if (null != user){
-                HttpSession session = request.getSession(true);
-                session.setAttribute(SESSION_VAR, user);
-                return true;
-            } else{
-                return false;
-            }
         }
-        return false;
+        return null;
     }
 
     /**
@@ -60,9 +55,8 @@ public class AuthenticationLogic {
      * perform logout
      * @param request
      */
-    public static void logout(HttpServletRequest request){
-        HttpSession session = request.getSession(true);
-        session.removeAttribute(SESSION_VAR);
+    public static void logout(HttpSession session){
+        session.invalidate();
     }
 
     public static User user(HttpServletRequest request){
