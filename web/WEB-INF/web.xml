@@ -4,6 +4,10 @@
            xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 		  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
            version="2.5">
+    <filter>
+        <filter-name>EncodingFilter</filter-name>
+        <filter-class>kz.enu.epam.azimkhan.auth.filter.EncodingFilter</filter-class>
+    </filter>
     <listener>
         <listener-class>kz.enu.epam.azimkhan.auth.listener.ApplicationListener</listener-class>
     </listener>

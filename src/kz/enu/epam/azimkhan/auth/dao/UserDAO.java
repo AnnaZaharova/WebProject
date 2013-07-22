@@ -23,9 +23,10 @@ public class UserDAO extends AbstractDAO<Integer, User>{
     private static final String DELETE_BY_ID = "DELETE user WHERE id = ?";
     private static final String CREATE_USER = "INSERT INTO user (username, password, role_id) VALUES(?, ?, ?)";
     private static final String UPDATE_USER = "UPDATE users SET username = ?, password = ?, role_id = ? WHERE id = ?";
-    private static final Logger logger = Logger.getRootLogger();
+	private static final String USER_NOT_FOUND = "User not found";
+	private static final Logger logger = Logger.getRootLogger();
 
-    /**
+	/**
      * Find all users
      * @return
      * @throws DAOLogicalException
@@ -53,7 +54,7 @@ public class UserDAO extends AbstractDAO<Integer, User>{
 
                 while(set.next()){
 
-                    User user = createFromResultSet(set);
+                    User user = createEntity(set);
                     users.add(user);
                 }
 
@@ -101,10 +102,11 @@ public class UserDAO extends AbstractDAO<Integer, User>{
 
                     ResultSet set = statement.executeQuery();
 
-
                     if (set.next()){
-                        user = createFromResultSet(set);
-                    }
+                        user = createEntity(set);
+                    } else {
+						throw new DAOLogicalException(USER_NOT_FOUND);
+					}
 
                 } catch (SQLException e){
                     throw new DAOLogicalException(e);
@@ -155,8 +157,10 @@ public class UserDAO extends AbstractDAO<Integer, User>{
                     ResultSet resultSet = statement.executeQuery();
 
                     if(resultSet.next()){
-                        user = createFromResultSet(resultSet);
-                    }
+                        user = createEntity(resultSet);
+                    } else{
+						throw new DAOLogicalException(USER_NOT_FOUND);
+					}
 
                 } catch (SQLException e) {
                     throw new DAOLogicalException(e);
@@ -350,7 +354,8 @@ public class UserDAO extends AbstractDAO<Integer, User>{
      * @return
      * @throws SQLException
      */
-    private User createFromResultSet(ResultSet set) throws SQLException{
+	@Override
+    public User createEntity(ResultSet set) throws SQLException{
 
         User user = new User();
         user.setId(set.getInt("id"));

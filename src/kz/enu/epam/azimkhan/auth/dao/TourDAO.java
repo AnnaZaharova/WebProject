@@ -43,8 +43,7 @@ public class TourDAO extends AbstractDAO<Integer, Tour>{
 				ResultSet set = statement.executeQuery();
 
 				while(set.next()){
-
-					Tour tour = createFromResultSet(set);
+					Tour tour = createEntity(set);
 					tours.add(tour);
 				}
 
@@ -91,7 +90,8 @@ public class TourDAO extends AbstractDAO<Integer, Tour>{
 		return false;  
 	}
 
-	private Tour createFromResultSet(ResultSet set) throws SQLException{
+	@Override
+	public Tour createEntity(ResultSet set) throws SQLException{
 		Tour tour = new Tour();
 
 		tour.setId(set.getInt("id"));

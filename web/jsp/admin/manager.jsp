@@ -19,24 +19,22 @@
 
 <div class="content">
     <div class="actions">
-        <a class="btn" href="#"><fmt:message key="tour_table.add"/></a>
+        <a class="btn" href="app?c=add_tour&lang=${locale}"><fmt:message key="tour_table.add"/></a>
     </div>
-    <table>
-        <thead>
-            <th><fmt:message key="tour_table.id"/></th>
-            <th><fmt:message key="tour_table.tourname"/></th>
-            <th><fmt:message key="tour_table.details"/></th>
-        </thead>
-        <tbody>
-        <c:forEach items="${dao.findAll()}" var="tour">
-            <tr>
-                <td>${tour.id}</td>
-                <td>${tour.tourname}</td>
-                <td><p>${tour.details}</p></td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+
+    <c:forEach items="${dao.findAll()}" var="tour">
+        <div class="tour">
+            <h3>${tour.tourname}
+            <c:if test="${tour.hot}">
+                <span class="hot"><fmt:message key="tour_table.hot"/></span>
+            </c:if>
+            </h3>
+            <p><b><fmt:message key="tour_table.price"/>:</b> ${tour.price} USD</p>
+            <p><b><fmt:message key="tour_table.type"/>:</b> ${tour.type}</p>
+            <p><b><fmt:message key="tour_table.details"/>:</b>${tour.details}</p>
+        </div>
+    </c:forEach>
+
 
 </div>
 </body>
