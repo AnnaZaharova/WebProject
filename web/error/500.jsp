@@ -10,14 +10,14 @@
 <html>
 <head>
     <title>${title}</title>
-    <link rel="stylesheet" href="css/error.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/error.css" />
 </head>
 
 <body>
     <%-- production
     <h1>${title}</h1>
     <p>${message}</p>
-    <a href="index.jsp?lang=${locale}">${back}</a>
+    <a href="${pageContext.request.contextPath}/index.jsp?lang=${locale}">${back}</a>
     --%>
 
     <%-- development --%>

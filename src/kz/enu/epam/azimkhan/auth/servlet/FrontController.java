@@ -50,6 +50,7 @@ public class FrontController extends HttpServlet {
         ActionCommand command = requestHelper.getCommand(request);
 
         try{
+            logger.info("Command: " + command.getClass().getSimpleName());
             String page = command.execute(request, response);
             if (page != null){
                 request.getRequestDispatcher(page).forward(request, response);
@@ -58,6 +59,7 @@ public class FrontController extends HttpServlet {
 			if (errorPagePath != null){
 				request.getRequestDispatcher(errorPagePath).forward(request, response);
 			}
+
 			logger.error(e.getMessage());
         }
     }

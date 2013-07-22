@@ -34,7 +34,6 @@ public class CommandAccessFilter implements Filter {
         User user = AuthenticationLogic.user(request);
 
         if (command.checkAccess(user)){
-
             chain.doFilter(req, resp);
         } else{
             response.setStatus(403);

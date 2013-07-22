@@ -50,13 +50,8 @@ public enum RequestHelper {
 
         ActionCommand command = commands.get(action);
 
-        logger.info("Command requested: "+ action);
-
         if (command == null){
             command = new EmptyCommand();
-            logger.error("No such command, returning "+ command);
-        } else {
-            logger.info("Command found: " + command);
         }
 
         return command;

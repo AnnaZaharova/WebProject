@@ -136,3 +136,39 @@ td {
     padding-left: 15px;
     margin-bottom: 25px;
 }
+
+.project-name span{
+    color: rgb(49, 128, 180);
+}
+
+.project-name{
+    color: rgb(224, 159, 43);
+    font-weight: normal;
+    padding-left: 75px;
+    background: url('../images/logo.jpg') no-repeat;
+    line-height: 65px;
+    vertical-align: middle;
+    background-size: 60px;
+
+}
+
+#style .menu{
+    position: absolute;
+    right: 0;
+    top: 25px;
+
+}
+#style .menu li{
+    display: inline-block;
+    margin-left: 10px;
+}
+
+#style .menu li a{
+    color: rgb(93, 137, 162);
+}
+
+#style {
+    position: relative;
+    border-bottom: 1px dashed #ccc;
+    margin-bottom: 25px;
+}

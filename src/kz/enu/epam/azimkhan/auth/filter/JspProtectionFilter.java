@@ -24,8 +24,9 @@ public class JspProtectionFilter implements Filter{
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
-        response.setStatus(403);
+        response.setStatus(404);
         logger.error("Someone tried to access jsp file directly");
+        request.getRequestDispatcher(pathManager.getString("path.error404")).forward(req, resp);
     }
 
     @Override
