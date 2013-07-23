@@ -1,7 +1,7 @@
 body{
     margin: 0;
     padding: 0;
-    font: 14px/1.6 'Lucida Grande', helvetica, sans-serif;
+    font: 14px/1.6 helvetica, sans-serif;
 }
 p, ul, div{
     margin: 0;
@@ -30,9 +30,9 @@ a{
 
 #footer{
     padding: 15px;
-    background-color: rgb(240, 250, 255);
-    color: rgb(172, 201, 224);
-    margin:50px 0;
+    background-color: rgb(236, 242, 245);
+    color: rgb(121, 171, 211);
+    margin: 50px 0;
 }
 
 .content{
@@ -211,9 +211,16 @@ td {
     vertical-align: top;
     margin-right: 15px;
     font-weight: bold;
+    text-align: right;
+    line-height: 1;
 }
 
-.form-row input, .form-row textarea, .form-row select {
+.form-row input[type=text],
+.form-row input[type=number],
+.form-row input[type=password],
+.form-row input[type=email],
+.form-row textarea,
+.form-row select {
     width: 500px;
     font-size: 110%;
     padding: 5px;

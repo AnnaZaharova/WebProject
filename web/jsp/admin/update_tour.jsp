@@ -8,7 +8,7 @@
 <c:set var="user" scope="page" value="${m:user(pageContext.request)}"/>
 <html>
 <head>
-    <title><fmt:message key="add_tour.title"/></title>
+    <title><fmt:message key="update_tour.title"/></title>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/style.css"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
@@ -19,7 +19,7 @@
 
 
 <div class="content">
-    <h1><fmt:message key="add_tour.title"/></h1>
+    <h1><fmt:message key="update_tour.title"/></h1>
 
     <%@include file="_form.jspf"%>
 

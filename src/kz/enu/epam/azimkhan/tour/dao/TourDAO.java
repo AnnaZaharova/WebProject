@@ -20,8 +20,10 @@ import java.util.List;
  */
 public class TourDAO extends AbstractDAO<Integer, Tour>{
 	private final String SELECT_ALL = "SELECT id, tourname, details, hot, price, regular_discount, type FROM tour";
+	private final String FIND_BY_ID = "SELECT id, tourname, details, hot, price, regular_discount, type FROM tour WHERE id = ?";
     private final String CREATE_TOUR = "INSERT INTO tour(tourname, details, hot, price, regular_discount, type) VALUES(?, ?, ?, ?, ?, ?)";
-    private final String DELETE_TOUR_BY_ID = "DELETE FROM tour WHERE id = ?";
+    private final String UPDATE_BY_ID = "UPDATE tour SET tourname=?, details=?, hot=?, price=?, regular_discount=?, type=? WHERE id=?";
+	private final String DELETE_TOUR_BY_ID = "DELETE FROM tour WHERE id = ?";
 	private static final Logger logger = Logger.getRootLogger();
 
 	@Override
@@ -75,7 +77,48 @@ public class TourDAO extends AbstractDAO<Integer, Tour>{
      */
 	@Override
 	public Tour findById(Integer id) throws DAOLogicalException, DAOTechnicalException {
-		return null;  
+		if (id != null){
+			ConnectionPool pool = null;
+			try {
+				pool = ConnectionPool.getInstance();
+			} catch (ConnectionPoolException e) {
+				throw new DAOLogicalException(e);
+			}
+
+			Connection connection = pool.getConnection();
+			PreparedStatement statement = null;
+
+			if (connection != null){
+				try {
+					statement = connection.prepareStatement(FIND_BY_ID);
+				   	statement.setInt(1, id);
+
+					ResultSet set = statement.executeQuery();
+
+					if (set.next()){
+						return createEntity(set);
+					} else{
+						throw new DAOLogicalException();
+					}
+				} catch (SQLException e) {
+					throw new DAOTechnicalException(e);
+				} finally {
+					if (statement != null){
+						try {
+							statement.close();
+						} catch (SQLException e) {
+							logger.error(e.getMessage());
+						}
+						pool.release(connection);
+					}
+				}
+
+			} else{
+				throw new DAOTechnicalException(NO_CONNECTION_MESSAGE);
+			}
+		} else {
+			throw new DAOLogicalException();
+		}
 	}
 
     /**
@@ -196,7 +239,54 @@ public class TourDAO extends AbstractDAO<Integer, Tour>{
 
 	@Override
 	public boolean update(Tour entity) throws DAOLogicalException, DAOTechnicalException {
-		return false;
+		if (entity != null){
+			ConnectionPool connectionPool = null;
+			try{
+				connectionPool = ConnectionPool.getInstance();
+			} catch (ConnectionPoolException e){
+				throw new DAOTechnicalException(e);
+			}
+
+			Connection connection = connectionPool.getConnection();
+			PreparedStatement statement = null;
+			if (connection != null){
+				try {
+
+					statement = connection.prepareStatement(UPDATE_BY_ID);
+					statement.setString(1, entity.getTourname());
+					statement.setString(2, entity.getDetails());
+					statement.setBoolean(3, entity.isHot());
+					statement.setInt(4, entity.getPrice());
+					statement.setInt(5, entity.getRegularDiscount());
+					statement.setInt(6, entity.getType().getId());
+					statement.setInt(7, entity.getId());
+					logger.info(statement);
+					int affected = statement.executeUpdate();
+					if (affected > 0){
+						return true;
+					} else{
+						throw new DAOLogicalException();
+					}
+
+				} catch (SQLException e) {
+					throw new DAOTechnicalException(e.getMessage());
+
+				} finally {
+					if (null != statement) {
+						try {
+							statement.close();
+						} catch (SQLException e) {
+							logger.error(e.getMessage());
+						}
+					}
+					connectionPool.release(connection);
+				}
+			} else{
+				throw new DAOTechnicalException(NO_CONNECTION_MESSAGE);
+			}
+		} else {
+			throw new DAOLogicalException();
+		}
 	}
 
 	@Override

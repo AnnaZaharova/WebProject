@@ -46,6 +46,7 @@ public class FlashesTag extends BodyTagSupport{
 
             Notification notification = iterator.next();
             iterator.remove();
+			if (notification != null){
             String message = formatMessage(notification);
 
             if (message != null){
@@ -55,6 +56,7 @@ public class FlashesTag extends BodyTagSupport{
                     //TODO logging or throw exception
                 }
             }
+			}
             return EVAL_BODY_AGAIN;
         }
 

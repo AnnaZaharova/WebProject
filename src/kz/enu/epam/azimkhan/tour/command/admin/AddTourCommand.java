@@ -39,7 +39,7 @@ public class AddTourCommand extends AdminCommand {
                 tourBuilder.build(request.getParameterMap(), tour);
                 TourDAO dao = new TourDAO();
                 if (dao.create(tour)){
-                    notification = NotificationCreator.createFromProperty("success", locale);
+                    notification = NotificationCreator.createFromProperty("info.db.create_success", locale);
                     return pathManager.getString("path.page.admin.manager");
                 }
 
