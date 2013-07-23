@@ -20,8 +20,6 @@ import java.util.Locale;
  */
 public class DeleteTourCommand extends AdminCommand{
 
-    private PathManager pathManager = PathManager.INSTANCE;
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         String param = request.getParameter("id");

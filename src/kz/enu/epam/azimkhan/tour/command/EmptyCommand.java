@@ -20,7 +20,7 @@ public class EmptyCommand extends ActionCommand{
     }
 
     /**
-     * Return to the error page
+     * default command that render main page
      * @param request request to read the command from
      * @param response response
      * @return path

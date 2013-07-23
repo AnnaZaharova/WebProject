@@ -13,10 +13,19 @@ public class Role extends Entity{
 	 */
 	private String rolename;
 
+
+    /**
+     * Get role name
+     * @return
+     */
 	public String getRolename() {
 		return rolename;
 	}
 
+    /**
+     * Set role name
+     * @param rolename
+     */
 	public void setRolename(String rolename) {
 		this.rolename = rolename;
 	}

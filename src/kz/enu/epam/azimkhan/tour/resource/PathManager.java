@@ -3,7 +3,7 @@ package kz.enu.epam.azimkhan.tour.resource;
 import java.util.ResourceBundle;
 
 /**
- * Url manager
+ * Performs path reading from property file
  */
 public enum PathManager {
     INSTANCE;

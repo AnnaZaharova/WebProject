@@ -28,16 +28,27 @@ public class LoginCommand extends ActionCommand{
 
     private Logger logger = Logger.getRootLogger();
 
+    /**
+     * Everyone allowed to login
+     * @param user can be null
+     * @return
+     */
     @Override
     public boolean checkAccess(User user) {
         return true;
     }
 
 
+    /**
+     * Execute login command
+     * @param request request to read the command from
+     * @param response
+     * @return
+     * @throws CommandException
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 
-        PathManager pathManager = PathManager.INSTANCE;
         Notification notification = null;
 
         Locale locale = LocaleManager.INSTANCE.resolveLocale(request);

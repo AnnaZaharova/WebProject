@@ -2,6 +2,7 @@ package kz.enu.epam.azimkhan.tour.command;
 
 import kz.enu.epam.azimkhan.tour.entity.User;
 import kz.enu.epam.azimkhan.tour.exception.CommandException;
+import kz.enu.epam.azimkhan.tour.resource.PathManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +11,11 @@ import javax.servlet.http.HttpServletResponse;
  * Abstract command
  */
 public abstract class ActionCommand {
+
+    /**
+     * Path manager
+     */
+    protected static final PathManager pathManager = PathManager.INSTANCE;
 
     /**
      * Check the access of user, return true if the user has access to

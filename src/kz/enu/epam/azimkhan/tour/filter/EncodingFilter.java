@@ -11,7 +11,7 @@ import java.io.IOException;
 public class EncodingFilter implements Filter {
 
 	public void destroy() {
-        // nothing to close
+        // blank
 	}
 
     /**
@@ -34,7 +34,7 @@ public class EncodingFilter implements Filter {
 	}
 
 	public void init(FilterConfig config) throws ServletException {
-        // nothing to configure
+        // blank
 	}
 
 }

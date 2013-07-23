@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- *
+ * command access filter
  */
 public class CommandAccessFilter implements Filter {
 
@@ -21,8 +21,20 @@ public class CommandAccessFilter implements Filter {
     private Logger logger = Logger.getRootLogger();
 
     public void destroy() {
+        //blank
     }
 
+    /**
+     * Checks the user role before executing command
+     * If user doesn't have required role a 403 error
+     * page will be displayed
+     *
+     * @param req
+     * @param resp
+     * @param chain
+     * @throws ServletException
+     * @throws IOException
+     */
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
 
         RequestHelper requestHelper = RequestHelper.INSTANCE;
@@ -43,7 +55,7 @@ public class CommandAccessFilter implements Filter {
     }
 
     public void init(FilterConfig config) throws ServletException {
-
+        // blank
     }
 
 }

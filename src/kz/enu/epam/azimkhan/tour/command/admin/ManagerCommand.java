@@ -12,9 +12,18 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ManagerCommand extends AdminCommand {
 
+    /**
+     * Displays a list of tours with the ability to
+     * delete, update or create a new one
+     *
+     * @param request request to read the command from
+     * @param response
+     * @return
+     * @throws CommandException
+     */
     @Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-		PathManager pathManager = PathManager.INSTANCE;
+
 		return pathManager.getString("path.page.admin.manager");
 	}
 }

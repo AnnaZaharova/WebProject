@@ -9,17 +9,33 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- *
+ * Jsp pages protection filter
  */
 public class JspProtectionFilter implements Filter{
 
+    /**
+     * path manager
+     */
     private PathManager pathManager = PathManager.INSTANCE;
+
+    /**
+     * logger
+     */
     private Logger logger = Logger.getRootLogger();
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        // blank
     }
 
+    /**
+     * Protects from direct jsp page viewing
+     * @param req
+     * @param resp
+     * @param chain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
@@ -31,5 +47,6 @@ public class JspProtectionFilter implements Filter{
 
     @Override
     public void destroy() {
+        // blank
     }
 }

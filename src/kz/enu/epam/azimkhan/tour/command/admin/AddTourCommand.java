@@ -27,7 +27,7 @@ public class AddTourCommand extends AdminCommand {
 
     @Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-		PathManager pathManager = PathManager.INSTANCE;
+
         request.setAttribute("tourTypes", TourType.values());
         Notification notification = null;
         Locale locale = LocaleManager.INSTANCE.resolveLocale(request);
