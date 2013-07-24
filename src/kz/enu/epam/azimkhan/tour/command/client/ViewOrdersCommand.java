@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * View orders
  */
-public class OrderListCommand extends ClientCommand{
+public class ViewOrdersCommand extends ClientCommand{
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 		return null;  //To change body of implemented methods use File | Settings | File Templates.

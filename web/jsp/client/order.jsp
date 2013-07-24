@@ -9,18 +9,29 @@
 <c:set var="user" scope="page" value="${auth:user(pageContext.request)}"/>
 <html>
 <head>
-    <title><fmt:message key="auth.page.title"/></title>
+    <title><fmt:message key="order.prepare.title"/></title>
     <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
 
 <%@include file="../../WEB-INF/jspf/header.jspf"%>
-<jsp:useBean id="dao" class="kz.enu.epam.azimkhan.tour.dao.TourDAO"/>
-
 
 <div class="content">
-      <p>Comming soon...</p>
+    <h1><fmt:message key="order.prepare.hint"/>:</h1>
+    <div class="tour-order">
+        <h3>${tour.tourname}</h3>
+        <p>${tour.details}</p>
+        
+        <p class="total"><fmt:message key="order.prepare.total"/>: ${amount} USD</p>
+    </div>
+
+    <div class="actions">
+        <a class="btn" href="app?c=order&id=${tour.id}&confirm=1&lang=${locale}"><fmt:message key="order.prepare.purchase"/></a>
+        <a href="app?c=tours&lang=${locale}"><fmt:message key="order.prepare.cancel"/></a>
+    </div>
 
 </div>
+
+<%@include file="../../WEB-INF/jspf/footer.jspf"%>
 </body>
 </html>

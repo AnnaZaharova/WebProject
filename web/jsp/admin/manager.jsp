@@ -16,15 +16,13 @@
 <body>
 
 <%@include file="../../WEB-INF/jspf/header.jspf"%>
-<jsp:useBean id="dao" class="kz.enu.epam.azimkhan.tour.dao.TourDAO"/>
-
 
 <div class="content">
     <div class="actions">
         <a class="btn" href="app?c=add_tour&lang=${locale}"><fmt:message key="tour_table.add"/></a>
     </div>
 
-    <c:forEach items="${dao.findAll()}" var="tour">
+    <c:forEach items="${tours}" var="tour">
         <div class="tour">
             <h3>${tour.tourname}
                 <c:if test="${tour.hot}">

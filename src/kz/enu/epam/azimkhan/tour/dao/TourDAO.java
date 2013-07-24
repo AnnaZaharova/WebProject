@@ -3,6 +3,7 @@ package kz.enu.epam.azimkhan.tour.dao;
 import kz.enu.epam.azimkhan.tour.connection.ConnectionPool;
 import kz.enu.epam.azimkhan.tour.entity.Tour;
 import kz.enu.epam.azimkhan.tour.entity.TourType;
+import kz.enu.epam.azimkhan.tour.entity.User;
 import kz.enu.epam.azimkhan.tour.exception.ConnectionPoolException;
 import kz.enu.epam.azimkhan.tour.exception.DAOLogicalException;
 import kz.enu.epam.azimkhan.tour.exception.DAOTechnicalException;
@@ -24,8 +25,19 @@ public class TourDAO extends AbstractDAO<Integer, Tour>{
     private final String CREATE_TOUR = "INSERT INTO tour(tourname, details, hot, price, regular_discount, type) VALUES(?, ?, ?, ?, ?, ?)";
     private final String UPDATE_BY_ID = "UPDATE tour SET tourname=?, details=?, hot=?, price=?, regular_discount=?, type=? WHERE id=?";
 	private final String DELETE_TOUR_BY_ID = "DELETE FROM tour WHERE id = ?";
+
 	private static final Logger logger = Logger.getRootLogger();
 
+    private TourDAO(){}
+
+    private static TourDAO instance;
+
+    public static TourDAO getInstance(){
+        if (instance == null){
+            instance = new TourDAO();
+        }
+        return instance;
+    }
 	@Override
 	public List<Tour> findAll() throws DAOLogicalException, DAOTechnicalException {
 		ConnectionPool connectionPool = null;
@@ -308,4 +320,6 @@ public class TourDAO extends AbstractDAO<Integer, Tour>{
 
 		return tour;
 	}
+
+
 }

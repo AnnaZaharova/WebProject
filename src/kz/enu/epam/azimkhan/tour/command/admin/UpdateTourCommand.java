@@ -28,7 +28,7 @@ public class UpdateTourCommand extends AdminCommand{
 		request.setAttribute("tourTypes", TourType.values());
 		Notification notification = null;
 		Locale locale = LocaleManager.INSTANCE.resolveLocale(request);
-		TourDAO dao = new TourDAO();
+		TourDAO dao = TourDAO.getInstance();
 		Tour tour = new Tour();
 		int id;
 

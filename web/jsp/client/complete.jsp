@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="auth" uri="http://azimkhan.net/taglib/auth" %>
@@ -9,9 +9,8 @@
 <c:set var="user" scope="page" value="${auth:user(pageContext.request)}"/>
 <html>
 <head>
-    <title><fmt:message key="add_tour.title"/></title>
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/style.css"/>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title><fmt:message key="order.success.title"/></title>
+    <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
 
@@ -19,11 +18,17 @@
 
 
 <div class="content">
-    <h1><fmt:message key="add_tour.title"/></h1>
-
-    <%@include file="_form.jspf"%>
+    <div class="order-complete">
+        <h1><fmt:message key="order.success.title"/></h1>
+        <p><fmt:message key="order.success.thanks">
+            <fmt:param value="${tour.tourname}"/>
+            </fmt:message>
+        </p>
+        <a href="app?c=account&lang=${locale}"><fmt:message key="order.success.goto"/></a>
+    </div>
 
 </div>
+
 
 <%@include file="../../WEB-INF/jspf/footer.jspf"%>
 </body>

@@ -28,7 +28,7 @@ public class DeleteTourCommand extends AdminCommand{
             Locale locale = LocaleManager.INSTANCE.resolveLocale(request);
             try{
                 int id = Integer.parseInt(param);
-                TourDAO dao = new TourDAO();
+                TourDAO dao = TourDAO.getInstance();
                 if (dao.delete(id)){
                     notification = NotificationCreator.createFromProperty("info.db.delete_success", locale);
                 }

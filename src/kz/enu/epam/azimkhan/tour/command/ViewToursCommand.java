@@ -26,7 +26,7 @@ public class ViewToursCommand extends ActionCommand{
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 
-		TourDAO dao = new TourDAO();
+		TourDAO dao = TourDAO.getInstance();
 		try {
 			List<Tour> tours = dao.findAll();
             User client = AuthenticationLogic.user(request);

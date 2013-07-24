@@ -5,6 +5,8 @@ import kz.enu.epam.azimkhan.tour.command.admin.AddTourCommand;
 import kz.enu.epam.azimkhan.tour.command.admin.DeleteTourCommand;
 import kz.enu.epam.azimkhan.tour.command.admin.ManagerCommand;
 import kz.enu.epam.azimkhan.tour.command.admin.UpdateTourCommand;
+import kz.enu.epam.azimkhan.tour.command.client.AccountCommand;
+import kz.enu.epam.azimkhan.tour.command.client.OrderCommand;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletRequest;
@@ -33,6 +35,8 @@ public enum RequestHelper {
         commands.put("logout", new LogoutCommand());
 		commands.put("tours", new ViewToursCommand());
         //Client commands
+        commands.put("account", new AccountCommand());
+        commands.put("order", new OrderCommand());
         //Admin commands
 		commands.put("manager", new ManagerCommand());
 		commands.put("add_tour", new AddTourCommand());

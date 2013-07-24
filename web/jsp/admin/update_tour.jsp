@@ -16,7 +16,6 @@
 <body>
 
 <%@include file="../../WEB-INF/jspf/header.jspf"%>
-<jsp:useBean id="dao" class="kz.enu.epam.azimkhan.tour.dao.TourDAO"/>
 
 
 <div class="content">

@@ -10,7 +10,7 @@
 
         <c:when test="${not empty user}">
             <c:set var="rolename" value="${user.role.rolename}"/>
-            <p><fmt:message key="user.welcome"><fmt:param value="${user.username}"/> <fmt:param value="${ user.role.rolename }"/> </fmt:message> [<a href="app?c=logout&lang=${locale}"><fmt:message key="user.logout"/></a>]</p>
+            <p><fmt:message key="user.welcome"><fmt:param value="${user.username}"/> </fmt:message> [<a href="app?c=logout&lang=${locale}"><fmt:message key="user.logout"/></a>]</p>
         </c:when>
 
         <c:otherwise>
@@ -27,6 +27,9 @@
         <li><a href="app?c=tours&lang=${locale}"><fmt:message key="menu.page.tours"/></a></li>
         <c:if test="${rolename eq 'admin'}">
         <li><a href="app?c=manager&lang=${locale}"><fmt:message key="menu.page.manager"/></a></li>
+        </c:if>
+        <c:if test="${rolename eq 'client'}">
+            <li><a href="app?c=account&lang=${locale}"><fmt:message key="menu.page.account"/></a></li>
         </c:if>
         <li><a href="app?lang=${locale}"><fmt:message key="menu.page.how_to"/></a></li>
 

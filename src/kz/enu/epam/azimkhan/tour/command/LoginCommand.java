@@ -1,10 +1,10 @@
 package kz.enu.epam.azimkhan.tour.command;
 
+import kz.enu.epam.azimkhan.tour.dao.OrderDAO;
+import kz.enu.epam.azimkhan.tour.entity.Order;
 import kz.enu.epam.azimkhan.tour.entity.Role;
 import kz.enu.epam.azimkhan.tour.entity.User;
-import kz.enu.epam.azimkhan.tour.exception.AuthenticationLogicalException;
-import kz.enu.epam.azimkhan.tour.exception.AuthenticationTechnicalException;
-import kz.enu.epam.azimkhan.tour.exception.CommandException;
+import kz.enu.epam.azimkhan.tour.exception.*;
 import kz.enu.epam.azimkhan.tour.logic.authentication.AuthenticationLogic;
 import kz.enu.epam.azimkhan.tour.notification.creator.NotificationCreator;
 import kz.enu.epam.azimkhan.tour.notification.entity.Notification;
@@ -16,6 +16,9 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -68,8 +71,10 @@ public class LoginCommand extends ActionCommand{
 
                     if (user.getRole().getRolename().equals(Role.ROLE_ADMIN)){
 						return pathManager.getString("path.page.admin.manager");
-					} else {
-						return pathManager.getString("path.page.tours");
+					} else if (user.getRole().getRolename().equals(Role.ROLE_CLIENT)){
+                        List<Order> orders = OrderDAO.getInstance().findOrdersForUser(user);
+                        request.setAttribute("orders", orders);
+						return pathManager.getString("path.page.client.account");
 					}
 
 
@@ -79,6 +84,10 @@ public class LoginCommand extends ActionCommand{
                 logger.info("Authentication fail by login: " + login);
                 notification = NotificationCreator.createFromProperty("error.auth.invalid_login_pass", Notification.Type.ERROR, locale);
 
+            } catch (DAOTechnicalException e) {
+                throw new CommandException(e);
+            } catch (DAOLogicalException e) {
+                throw new CommandException(e);
             } finally {
                 if (notification != null){
                     NotificationService.push(request.getSession(), notification);
