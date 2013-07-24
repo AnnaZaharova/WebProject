@@ -16,7 +16,7 @@
 
     <div class="form-row">
         <label for="details"><fmt:message key="tour_form.details"/></label>
-        <textarea id="details" name="details">${tour.details}</textarea>
+        <textarea rows="15" id="details" name="details">${tour.details}</textarea>
     </div>
 
     <div class="form-row">
@@ -38,7 +38,7 @@
     </div>
 
     <div class="form-row">
-        <label for="discount"><fmt:message key="tour_form.discount"/></label>
+        <label for="discount"><fmt:message key="tour_form.discount"/>(%)</label>
         <input id="discount" type="number" name="regular_discount" value="${tour.regularDiscount}"/>
     </div>
 

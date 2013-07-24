@@ -31,6 +31,7 @@ public enum RequestHelper {
         //Everyone commands
         commands.put("login", new LoginCommand());
         commands.put("logout", new LogoutCommand());
+		commands.put("tours", new ViewToursCommand());
         //Client commands
         //Admin commands
 		commands.put("manager", new ManagerCommand());

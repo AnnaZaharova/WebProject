@@ -14,7 +14,6 @@ import kz.enu.epam.azimkhan.tour.notification.entity.Notification;
 import kz.enu.epam.azimkhan.tour.notification.service.NotificationService;
 import kz.enu.epam.azimkhan.tour.resource.LocaleManager;
 import org.apache.log4j.Logger;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
@@ -45,7 +44,7 @@ public class UpdateTourCommand extends AdminCommand{
 			if (request.getParameter("submit") != null){
 				tour = new Tour();
 				tour.setId(id);
-				Logger.getRootLogger().info("submitted");
+
 				TourBuilder tourBuilder = new TourBuilder();
 				try {
 
@@ -66,8 +65,6 @@ public class UpdateTourCommand extends AdminCommand{
 				}
 			} else {
 				try {
-
-					Logger.getRootLogger().info("new");
 					tour = dao.findById(id);
 
 				} catch (DAOTechnicalException e) {

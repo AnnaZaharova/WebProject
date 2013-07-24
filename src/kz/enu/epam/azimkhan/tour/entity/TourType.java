@@ -42,4 +42,7 @@ public enum TourType {
 	   return null;
 	}
 
+	public String getDisplayName(){
+		return this.name().toLowerCase();
+	}
 }

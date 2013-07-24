@@ -230,3 +230,65 @@ td {
     box-shadow: 0 0 5px #ccc;
 }
 
+#tours{
+    font-size: 0;
+}
+
+.tour-view {
+    width: 28.666666%;
+    vertical-align: top;
+    padding: 2%;
+    display: inline-block;
+    background: rgb(234, 243, 245);
+    font-size: 15px;
+    margin-right: 1%;
+}
+
+.tour-view:nth-child(3n){
+    margin: 0;
+}
+
+.tour-view h3{
+    margin: 0 0 5px 0;
+    font-weight: normal;
+    color: rgb(0, 90, 141);
+    font-size: 137%;
+    font-weight: normal;
+}
+
+.tour-view .price{
+    float: right;
+}
+.tour-view .hot{
+    font-size: 70% !important;
+    color: red;
+    font-weight: bold;
+    vertical-align: top;
+    margin-left: 5px;
+}
+.tour-view p.details{
+    line-height: 1.4;
+    font-size: 90%;
+    color: #555;
+}
+
+.tour-view .type{
+    padding: 7px 0 7px 45px;
+    background-size: 30px;
+    background-repeat: no-repeat;
+    line-height: 1;
+    vertical-align: top;
+    margin-bottom: 10px;
+    font-size: 103%;
+}
+
+.tour-view .type-shopping{
+    background-image: url("../images/shopping.png");
+}
+.tour-view .type-vacation{
+    background-image: url("../images/vacation.png");
+}
+
+.tour-view .type-excursion{
+    background-image: url("../images/excursion.png");
+}
