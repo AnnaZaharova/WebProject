@@ -60,7 +60,7 @@ public class FrontController extends HttpServlet {
 				request.getRequestDispatcher(errorPagePath).forward(request, response);
 			}
 
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(), e);
         }
     }
 

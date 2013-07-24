@@ -34,11 +34,11 @@
 </div>
 
 <div class="hr"></div>
-<c:if test="${m:have_notifications(pageContext.session)}">
+<c:if test="${n:have_notifications(pageContext.session)}">
     <div class="content">
-    <m:notifications>
+    <n:notifications>
         <p class="alert alert-{type}">{message}</p>
-    </m:notifications>
+    </n:notifications>
     </div>
 </c:if>
 

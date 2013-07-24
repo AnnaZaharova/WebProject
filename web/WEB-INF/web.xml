@@ -65,10 +65,12 @@
     -->
 
     <jsp-config>
+
         <taglib>
-            <taglib-uri>http://azimkhan.net/taglib</taglib-uri>
-            <taglib-location>/WEB-INF/tld/my.tld</taglib-location>
+            <taglib-uri>http://azimkhan.net/taglib/auth</taglib-uri>
+            <taglib-location>/WEB-INF/tld/auth.tld</taglib-location>
         </taglib>
+
     </jsp-config>
 
 </web-app>

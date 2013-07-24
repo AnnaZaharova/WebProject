@@ -292,3 +292,8 @@ td {
 .tour-view .type-excursion{
     background-image: url("../images/excursion.png");
 }
+
+.discounted{
+    text-decoration: line-through;
+    color: #888;
+}

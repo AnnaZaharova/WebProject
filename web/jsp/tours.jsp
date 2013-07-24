@@ -1,11 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@taglib prefix="m" uri="http://azimkhan.net/taglib" %>
+<%@taglib prefix="auth" uri="http://azimkhan.net/taglib/auth" %>
+<%@taglib prefix="n" uri="http://azimkhan.net/taglib/notification" %>
 
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="message"/>
-<c:set var="user" scope="page" value="${m:user(pageContext.request)}"/>
+<c:set var="user" scope="page" value="${auth:user(pageContext.request)}"/>
 <html>
 <head>
     <title><fmt:message key="main.page.title"/></title>
@@ -25,7 +26,17 @@
             <p class="details">${tour.details}</p>
             <a class="btn" href="app?c=order&id=${tour.id}&lang=${locale}"><fmt:message key="tour.order"/></a>
             <c:set var="discounted" value="${tour.price - (tour.price * tour.regularDiscount * 0.01)}"/>
-            <span class="price">${tour.price} (${discounted}) USD</span>
+            <c:choose>
+
+                <c:when test="${regular eq true and discounted < tour.price}">
+
+                    <p class="price"><span class="discounted">${tour.price} USD</span> ${discounted} USD</p>
+                </c:when>
+                <c:otherwise>
+                    <p class="price">${tour.price} USD</p>
+                </c:otherwise>
+
+            </c:choose>
         </div>
     </c:forEach>
 </div>
