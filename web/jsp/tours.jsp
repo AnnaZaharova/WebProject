@@ -24,7 +24,7 @@
             <c:set var="type" value="${tour.type.displayName}"/>
             <p class="type type-${type}"><fmt:message key="tour_type.${type}"/><c:if test="${tour.hot}"><span class="hot"><fmt:message key="tour_table.hot"/></span></c:if></p>
             <p class="details">${tour.details}</p>
-            <a class="btn" href="app?c=order&id=${tour.id}&lang=${locale}"><fmt:message key="tour.order"/></a>
+
             <c:set var="discounted" value="${tour.price - (tour.price * tour.regularDiscount * 0.01)}"/>
             <c:choose>
 
@@ -36,6 +36,15 @@
                     <p class="price">${tour.price} USD</p>
                 </c:otherwise>
 
+            </c:choose>
+
+            <c:choose>
+                <c:when test="${not empty rolename and rolename eq 'client'}">
+                    <a class="btn" href="app?c=order&id=${tour.id}&lang=${locale}"><fmt:message key="tour.order"/></a>
+                </c:when>
+                <c:otherwise>
+                    <p class="not-logged"><fmt:message key="tour.not_logged"/></p>
+                </c:otherwise>
             </c:choose>
         </div>
     </c:forEach>
