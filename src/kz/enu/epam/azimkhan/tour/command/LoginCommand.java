@@ -1,8 +1,10 @@
 package kz.enu.epam.azimkhan.tour.command;
 
 import kz.enu.epam.azimkhan.tour.dao.OrderDAO;
+import kz.enu.epam.azimkhan.tour.dao.TourDAO;
 import kz.enu.epam.azimkhan.tour.entity.Order;
 import kz.enu.epam.azimkhan.tour.entity.Role;
+import kz.enu.epam.azimkhan.tour.entity.Tour;
 import kz.enu.epam.azimkhan.tour.entity.User;
 import kz.enu.epam.azimkhan.tour.exception.*;
 import kz.enu.epam.azimkhan.tour.logic.authentication.AuthenticationLogic;
@@ -70,6 +72,8 @@ public class LoginCommand extends ActionCommand{
                     notification = NotificationCreator.createFromProperty("info.auth.success", locale);
 
                     if (user.getRole().getRolename().equals(Role.ROLE_ADMIN)){
+						List<Tour> tours = TourDAO.getInstance().findAll();
+						request.setAttribute("tours", tours);
 						return pathManager.getString("path.page.admin.manager");
 					} else if (user.getRole().getRolename().equals(Role.ROLE_CLIENT)){
                         List<Order> orders = OrderDAO.getInstance().findOrdersForUser(user);
