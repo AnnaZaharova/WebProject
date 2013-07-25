@@ -272,7 +272,7 @@ public class TourDAO extends AbstractDAO<Integer, Tour>{
 					statement.setInt(5, entity.getRegularDiscount());
 					statement.setInt(6, entity.getType().getId());
 					statement.setInt(7, entity.getId());
-					logger.info(statement);
+
 					int affected = statement.executeUpdate();
 					if (affected > 0){
 						return true;

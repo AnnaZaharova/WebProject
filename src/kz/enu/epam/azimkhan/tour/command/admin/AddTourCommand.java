@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -40,6 +41,8 @@ public class AddTourCommand extends AdminCommand {
                 TourDAO dao = TourDAO.getInstance();
                 if (dao.create(tour)){
                     notification = NotificationCreator.createFromProperty("info.db.create_success", locale);
+                    List<Tour> tours = dao.findAll();
+                    request.setAttribute("tours", tours);
                     return pathManager.getString("path.page.admin.manager");
                 }
 

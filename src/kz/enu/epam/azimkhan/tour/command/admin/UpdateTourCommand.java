@@ -16,6 +16,7 @@ import kz.enu.epam.azimkhan.tour.resource.LocaleManager;
 import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -52,6 +53,8 @@ public class UpdateTourCommand extends AdminCommand{
 
 					if (dao.update(tour)){
 						notification = NotificationCreator.createFromProperty("info.db.update_success", locale);
+                        List<Tour> tours = dao.findAll();
+                        request.setAttribute("tours", tours);
 						return pathManager.getString("path.page.admin.manager");
 					}
 
