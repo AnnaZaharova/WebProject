@@ -11,17 +11,41 @@ import java.util.Iterator;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Database connection pool
  */
 public class ConnectionPool implements Pool<Connection>{
 
+    /**
+     * Singleton instace
+     */
     private static ConnectionPool instance = null;
+    /**
+     * Concurrent fair lock
+     */
+    private static Lock lock = new ReentrantLock(true);
 
+    /**
+     * Pool size
+     */
     private final int POOL_SIZE = 10;
+
+    /**
+     * Maximum waiting time
+     */
     private final int MAX_WAITING_TIME = 2;
+
+    /**
+     * Database configuration manager
+     */
     private final DBConfigurationManager config = DBConfigurationManager.INSTANCE;
+
+    /**
+     * Logger
+     */
     private final Logger logger = Logger.getRootLogger();
 
     /**
@@ -37,10 +61,13 @@ public class ConnectionPool implements Pool<Connection>{
      * Get single instance
      * @return
      */
-    public synchronized static ConnectionPool getInstance() throws ConnectionPoolException{
+    public static ConnectionPool getInstance() throws ConnectionPoolException{
+
+        lock.lock();
         if (null == instance){
             instance = new ConnectionPool();
         }
+        lock.unlock();
 
         return instance;
     }
@@ -62,14 +89,10 @@ public class ConnectionPool implements Pool<Connection>{
                 connections.add(connection);
             }
         } catch (SQLException e) {
-            //????????
-            //throw new RuntimeException(e);
-            logger.error(e.getMessage());
+            throw new ConnectionPoolException(e);
 
         } catch (ClassNotFoundException e) {
-            //????????
-            //throw new RuntimeException(e);
-            logger.error(e.getMessage());
+            throw new ConnectionPoolException(e);
         }
     }
 
@@ -102,9 +125,9 @@ public class ConnectionPool implements Pool<Connection>{
             try {
                 connections.put(connection);
                 logger.info("Connection " + connection + " returned to connection pool");
+                logger.info("There are(is) " + (connections.size() - connections.remainingCapacity()) + " connection(s) in the pool.");
             } catch (InterruptedException e) {
                 logger.error(e.getMessage());
-
             }
         }
     }
