@@ -14,13 +14,13 @@
 </head>
 
 <body>
-    <%-- production
+    <%-- production--%>
     <h1>${title}</h1>
     <p>${message}</p>
     <a href="${pageContext.request.contextPath}/index.jsp?lang=${locale}">${back}</a>
-    --%>
 
-    <%-- development --%>
+
+    <%-- development
     <h4>Error:</h4>
     <p>${pageContext.exception}</p>
     <p>${pageContext.errorData.statusCode}</p>
@@ -30,6 +30,6 @@
     <c:forEach var="trace"
                items="${pageContext.exception.stackTrace}">
         <p>${trace}</p>
-    </c:forEach>
+    </c:forEach>--%>
 </body>
 </html>
