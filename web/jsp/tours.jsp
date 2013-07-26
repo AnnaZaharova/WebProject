@@ -9,7 +9,7 @@
 <c:set var="user" scope="page" value="${auth:user(pageContext.request)}"/>
 <html>
 <head>
-    <title><fmt:message key="main.page.title"/></title>
+    <title><fmt:message key="tour.title"/></title>
     <link rel="stylesheet" href="css/style.css"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
