@@ -81,7 +81,7 @@ public class OrderDAO extends AbstractDAO<Integer, Order>{
                     connectionPool.release(connection);
                 }
             } else{
-                throw new DAOTechnicalException(NO_CONNECTION_MESSAGE);
+                throw new DAOTechnicalException(NO_CONNECTION);
             }
         } else {
             throw new DAOLogicalException(EMPTY_USER);
@@ -155,7 +155,7 @@ public class OrderDAO extends AbstractDAO<Integer, Order>{
                     connectionPool.release(connection);
                 }
             } else{
-                throw new DAOTechnicalException(NO_CONNECTION_MESSAGE);
+                throw new DAOTechnicalException(NO_CONNECTION);
             }
         }
 

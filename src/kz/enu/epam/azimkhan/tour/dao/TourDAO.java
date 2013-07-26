@@ -3,7 +3,6 @@ package kz.enu.epam.azimkhan.tour.dao;
 import kz.enu.epam.azimkhan.tour.connection.ConnectionPool;
 import kz.enu.epam.azimkhan.tour.entity.Tour;
 import kz.enu.epam.azimkhan.tour.entity.TourType;
-import kz.enu.epam.azimkhan.tour.entity.User;
 import kz.enu.epam.azimkhan.tour.exception.ConnectionPoolException;
 import kz.enu.epam.azimkhan.tour.exception.DAOLogicalException;
 import kz.enu.epam.azimkhan.tour.exception.DAOTechnicalException;
@@ -76,7 +75,7 @@ public class TourDAO extends AbstractDAO<Integer, Tour>{
 				connectionPool.release(connection);
 			}
 		} else{
-			throw new DAOTechnicalException();
+			throw new DAOTechnicalException(NO_CONNECTION);
 		}
 	}
 
@@ -110,7 +109,7 @@ public class TourDAO extends AbstractDAO<Integer, Tour>{
 					if (set.next()){
 						return createEntity(set);
 					} else{
-						throw new DAOLogicalException();
+						throw new DAOLogicalException(ENTITY_WAS_NOT_FOUND);
 					}
 				} catch (SQLException e) {
 					throw new DAOTechnicalException(e);
@@ -126,10 +125,10 @@ public class TourDAO extends AbstractDAO<Integer, Tour>{
 				}
 
 			} else{
-				throw new DAOTechnicalException(NO_CONNECTION_MESSAGE);
+				throw new DAOTechnicalException(NO_CONNECTION);
 			}
 		} else {
-			throw new DAOLogicalException();
+			throw new DAOLogicalException(INVALID_DATA);
 		}
 	}
 
@@ -165,7 +164,7 @@ public class TourDAO extends AbstractDAO<Integer, Tour>{
                     }
 
                 } catch (SQLException e) {
-                    throw new DAOTechnicalException();
+                    throw new DAOTechnicalException(e);
                 } finally {
                     if (null != statement) {
                         try {
@@ -177,11 +176,11 @@ public class TourDAO extends AbstractDAO<Integer, Tour>{
                     connectionPool.release(connection);
                 }
             } else{
-                throw new DAOTechnicalException(NO_CONNECTION_MESSAGE);
+                throw new DAOTechnicalException(NO_CONNECTION);
             }
+        } else{
+            throw new DAOLogicalException(INVALID_DATA);
         }
-
-        return false;
 	}
 
     /**
@@ -242,7 +241,7 @@ public class TourDAO extends AbstractDAO<Integer, Tour>{
                     connectionPool.release(connection);
                 }
             } else{
-                throw new DAOTechnicalException(NO_CONNECTION_MESSAGE);
+                throw new DAOTechnicalException(NO_CONNECTION);
             }
         }
 
@@ -277,7 +276,7 @@ public class TourDAO extends AbstractDAO<Integer, Tour>{
 					if (affected > 0){
 						return true;
 					} else{
-						throw new DAOLogicalException();
+						throw new DAOLogicalException(NO_ROWS_AFFECTED);
 					}
 
 				} catch (SQLException e) {
@@ -294,10 +293,10 @@ public class TourDAO extends AbstractDAO<Integer, Tour>{
 					connectionPool.release(connection);
 				}
 			} else{
-				throw new DAOTechnicalException(NO_CONNECTION_MESSAGE);
+				throw new DAOTechnicalException(NO_CONNECTION);
 			}
 		} else {
-			throw new DAOLogicalException();
+			throw new DAOLogicalException(INVALID_DATA);
 		}
 	}
 

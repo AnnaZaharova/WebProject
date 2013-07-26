@@ -14,7 +14,10 @@ import java.util.List;
  * @param <T>
  */
 public abstract class AbstractDAO <K, T extends Entity> {
-	protected final String NO_CONNECTION_MESSAGE = "Unable to get connection with database";
+	protected final String NO_CONNECTION = "Unable to get connection with database";
+	protected final String ENTITY_WAS_NOT_FOUND = "No entity with such id";
+	protected final String INVALID_DATA = "Null or invalid parameter(s)";
+    protected final String NO_ROWS_AFFECTED = "No rows affected";
 
 	/**
 	 * Find all entites

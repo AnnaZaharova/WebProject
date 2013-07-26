@@ -72,7 +72,7 @@ public class UserDAO extends AbstractDAO<Integer, User>{
                 connectionPool.release(connection);
             }
         } else{
-            throw new DAOTechnicalException(NO_CONNECTION_MESSAGE);
+            throw new DAOTechnicalException(NO_CONNECTION);
         }
     }
 
@@ -121,7 +121,7 @@ public class UserDAO extends AbstractDAO<Integer, User>{
                     connectionPool.release(connection);
                 }
             } else{
-                throw new DAOTechnicalException(NO_CONNECTION_MESSAGE);
+                throw new DAOTechnicalException(NO_CONNECTION);
             }
         }
 
@@ -175,7 +175,7 @@ public class UserDAO extends AbstractDAO<Integer, User>{
                     connectionPool.release(connection);
                 }
             } else{
-                throw new DAOTechnicalException(NO_CONNECTION_MESSAGE);
+                throw new DAOTechnicalException(NO_CONNECTION);
             }
         }
         return user;
@@ -209,7 +209,7 @@ public class UserDAO extends AbstractDAO<Integer, User>{
                     return (affected > 0);
 
                 } catch (SQLException e) {
-                    throw new DAOTechnicalException();
+                    throw new DAOTechnicalException(e);
                 } finally {
                     if (null != statement) {
                         try {
@@ -221,11 +221,11 @@ public class UserDAO extends AbstractDAO<Integer, User>{
                     connectionPool.release(connection);
                 }
             } else{
-                throw new DAOTechnicalException(NO_CONNECTION_MESSAGE);
+                throw new DAOTechnicalException(NO_CONNECTION);
             }
+        } else{
+            throw new DAOLogicalException(INVALID_DATA);
         }
-
-        return false;
     }
 
     /**
@@ -238,9 +238,9 @@ public class UserDAO extends AbstractDAO<Integer, User>{
     public boolean delete(User entity) throws DAOLogicalException, DAOTechnicalException {
         if (entity != null){
              return delete(entity.getId());
+        } else{
+            throw new DAOLogicalException(INVALID_DATA);
         }
-
-        return false;
     }
 
     /**
@@ -269,7 +269,11 @@ public class UserDAO extends AbstractDAO<Integer, User>{
 					statement.setInt(3, entity.getRole().getId());
 
                     int affected = statement.executeUpdate();
-                    return (affected > 0);
+                    if (affected > 0){
+                        return true;
+                    } else{
+                        throw new DAOLogicalException(NO_ROWS_AFFECTED);
+                    }
 
                 } catch (SQLException e) {
                     throw new DAOTechnicalException(e.getMessage());
@@ -285,11 +289,11 @@ public class UserDAO extends AbstractDAO<Integer, User>{
                     connectionPool.release(connection);
                 }
             } else{
-                throw new DAOTechnicalException(NO_CONNECTION_MESSAGE);
+                throw new DAOTechnicalException(NO_CONNECTION);
             }
+        } else{
+            throw new DAOLogicalException(INVALID_DATA);
         }
-
-        return false;
     }
 
     /**
@@ -325,7 +329,11 @@ public class UserDAO extends AbstractDAO<Integer, User>{
 
                     int affected = statement.executeUpdate();
 
-                    return (affected > 0);
+                    if (affected > 0){
+                        return true;
+                    } else{
+                        throw new DAOLogicalException(NO_ROWS_AFFECTED);
+                    }
 
                 } catch (SQLException e) {
                     throw new DAOTechnicalException(e);
@@ -342,10 +350,11 @@ public class UserDAO extends AbstractDAO<Integer, User>{
                 }
 
             } else{
-                throw new DAOTechnicalException(NO_CONNECTION_MESSAGE);
+                throw new DAOTechnicalException(NO_CONNECTION);
             }
+        } else{
+            throw new DAOLogicalException(NO_ROWS_AFFECTED);
         }
-        return false;
     }
 
     /**
