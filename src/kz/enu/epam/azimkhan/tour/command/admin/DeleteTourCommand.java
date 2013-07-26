@@ -2,6 +2,7 @@ package kz.enu.epam.azimkhan.tour.command.admin;
 
 import kz.enu.epam.azimkhan.tour.command.AdminCommand;
 import kz.enu.epam.azimkhan.tour.dao.TourDAO;
+import kz.enu.epam.azimkhan.tour.entity.Tour;
 import kz.enu.epam.azimkhan.tour.exception.CommandException;
 import kz.enu.epam.azimkhan.tour.exception.DAOLogicalException;
 import kz.enu.epam.azimkhan.tour.exception.DAOTechnicalException;
@@ -13,6 +14,7 @@ import kz.enu.epam.azimkhan.tour.resource.PathManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -30,6 +32,8 @@ public class DeleteTourCommand extends AdminCommand{
                 int id = Integer.parseInt(param);
                 TourDAO dao = TourDAO.getInstance();
                 if (dao.delete(id)){
+                    List<Tour> tours = dao.findAll();
+                    request.setAttribute("tours", tours);
                     notification = NotificationCreator.createFromProperty("info.db.delete_success", locale);
                 }
             } catch (NumberFormatException e){
