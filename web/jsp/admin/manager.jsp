@@ -12,6 +12,18 @@
     <title><fmt:message key="admin.manager.title"/></title>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/style.css"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.btn-red').click(function(){
+                if (confirm ('<fmt:message key="admin.manager.delete"/>')){
+                    return true;
+                }
+
+                return false;
+            })
+        });
+    </script>
 </head>
 <body>
 

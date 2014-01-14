@@ -77,18 +77,18 @@ public class User extends Entity {
 
         User user = (User) o;
 
-        if (!password.equals(user.password)) return false;
-        if (!role.equals(user.role)) return false;
-        if (!username.equals(user.username)) return false;
+        if (password != null ? !password.equals(user.password) : user.password != null) return false;
+        if (role != null ? !role.equals(user.role) : user.role != null) return false;
+        if (username != null ? !username.equals(user.username) : user.username != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = username.hashCode();
-        result = 31 * result + password.hashCode();
-        result = 31 * result + role.hashCode();
+        int result = username != null ? username.hashCode() : 0;
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
         return result;
     }
 

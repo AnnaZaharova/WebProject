@@ -28,8 +28,9 @@
                 <thead>
                 <tr>
                     <th><fmt:message key="tour_table.tourname"/></th>
-                    <th><fmt:message key="account.table.amout"/></th>
                     <th><fmt:message key="account.table.date"/></th>
+                    <th><fmt:message key="account.table.amout"/></th>
+                    <th><fmt:message key="account.table.status"/></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -37,8 +38,16 @@
                     <c:set var="total" value="${total + order.amount}"/>
                     <tr>
                         <td>${order.tour.tourname}</td>
-                        <td><fmt:formatNumber maxFractionDigits="1" type="number"  groupingUsed="false" value="${order.amount}"/> USD</td>
                         <td><fmt:formatDate value="${order.dateTime}" pattern="d.M.Y H:m"/> </td>
+                        <td><fmt:formatNumber maxFractionDigits="1" type="number"  groupingUsed="false" value="${order.amount}"/> USD</td>
+                        <td><c:choose>
+                            <c:when test="${order.paid}">
+                                <fmt:message key="account.paid"/>
+                            </c:when>
+                            <c:otherwise>
+                                <fmt:message key="account.payment_wait"/>
+                            </c:otherwise>
+                        </c:choose></td>
                     </tr>
                 </c:forEach>
                 </tbody>

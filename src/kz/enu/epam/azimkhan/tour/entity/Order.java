@@ -3,7 +3,7 @@ package kz.enu.epam.azimkhan.tour.entity;
 import java.util.Date;
 
 /**
- *
+ * Tour order
  */
 public class Order extends Entity{
 
@@ -26,6 +26,8 @@ public class Order extends Entity{
      * amount paid
      */
     private double amount;
+
+    private boolean paid;
 
     public User getUser() {
         return user;
@@ -59,6 +61,14 @@ public class Order extends Entity{
         this.amount = amount;
     }
 
+    public boolean isPaid() {
+        return paid;
+    }
+
+    public void setPaid(boolean paid) {
+        this.paid = paid;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,9 +77,10 @@ public class Order extends Entity{
         Order order = (Order) o;
 
         if (Double.compare(order.amount, amount) != 0) return false;
-        if (!dateTime.equals(order.dateTime)) return false;
-        if (!tour.equals(order.tour)) return false;
-        if (!user.equals(order.user)) return false;
+        if (paid != order.paid) return false;
+        if (dateTime != null ? !dateTime.equals(order.dateTime) : order.dateTime != null) return false;
+        if (tour != null ? !tour.equals(order.tour) : order.tour != null) return false;
+        if (user != null ? !user.equals(order.user) : order.user != null) return false;
 
         return true;
     }
@@ -78,11 +89,12 @@ public class Order extends Entity{
     public int hashCode() {
         int result;
         long temp;
-        result = user.hashCode();
-        result = 31 * result + tour.hashCode();
-        result = 31 * result + dateTime.hashCode();
+        result = user != null ? user.hashCode() : 0;
+        result = 31 * result + (tour != null ? tour.hashCode() : 0);
+        result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
         temp = Double.doubleToLongBits(amount);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (paid ? 1 : 0);
         return result;
     }
 }

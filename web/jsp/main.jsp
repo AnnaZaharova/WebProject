@@ -20,6 +20,28 @@
 
     <h1><fmt:message key="main.page.intro.title"/></h1>
     <p><fmt:message key="main.page.intro.body"/></p>
+
+    <h1><fmt:message key="main.page.how_to"/> </h1>
+    <div class="blocks">
+    <div class="block block-search">
+        <h1><fmt:message key="block.search.title"/> </h1>
+        <img src="${pageContext.servletContext.contextPath}/images/search.png"/>
+        <p><fmt:message key="block.search.text"/> </p>
+    </div>
+
+    <div class="block block-order">
+        <h1><fmt:message key="block.order.title"/> </h1>
+        <img src="${pageContext.servletContext.contextPath}/images/order.png"/>
+        <p><fmt:message key="block.order.text"/> </p>
+    </div>
+
+    <div class="block block-complete">
+        <h1><fmt:message key="block.complete.title"/> </h1>
+
+        <img src="${pageContext.servletContext.contextPath}/images/accept.png"/>
+        <p><fmt:message key="block.complete.text"/> </p>
+    </div>
+    </div>
 </div>
 
 <%@include file="../WEB-INF/jspf/footer.jspf"%>

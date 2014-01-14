@@ -1,10 +1,7 @@
 package kz.enu.epam.azimkhan.tour.helper;
 
 import kz.enu.epam.azimkhan.tour.command.*;
-import kz.enu.epam.azimkhan.tour.command.admin.AddTourCommand;
-import kz.enu.epam.azimkhan.tour.command.admin.DeleteTourCommand;
-import kz.enu.epam.azimkhan.tour.command.admin.ManagerCommand;
-import kz.enu.epam.azimkhan.tour.command.admin.UpdateTourCommand;
+import kz.enu.epam.azimkhan.tour.command.admin.*;
 import kz.enu.epam.azimkhan.tour.command.client.AccountCommand;
 import kz.enu.epam.azimkhan.tour.command.client.OrderCommand;
 import org.apache.log4j.Logger;
@@ -42,6 +39,7 @@ public enum RequestHelper {
 		commands.put("add_tour", new AddTourCommand());
         commands.put("delete_tour", new DeleteTourCommand());
         commands.put("update_tour", new UpdateTourCommand());
+        commands.put("orders", new OrdersCommand());
     }
 
     /**
