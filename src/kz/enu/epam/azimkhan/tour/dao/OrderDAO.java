@@ -197,7 +197,7 @@ public class OrderDAO extends AbstractDAO<Integer, Order>{
                     statement.setInt(1, entity.getTour().getId());
                     statement.setInt(2, entity.getUser().getId());
                     statement.setDouble(3, entity.getAmount());
-                    statement.setTimestamp(4, new Timestamp(entity.getDateTime().getTime()));
+                    statement.setDate(4, new Date(entity.getDateTime().getTime()));
 
                     int affected = statement.executeUpdate();
                     return (affected > 0);
